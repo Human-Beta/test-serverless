@@ -1,0 +1,41 @@
+org: brainless
+app: test-aws-ec2
+service: test-aws-ec2
+frameworkVersion: '3'
+
+provider:
+  name: aws
+
+resources:
+  Resources:
+    InstanceEC2Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        Tags:
+          - Key: 'Name'
+            Value: 'ServerlessCreatedInstance'
+        ImageId: 'ami-0149b2da6ceec4bb0'
+        InstanceType: 't2.micro'
+        KeyName: 'serverless'
+        SecurityGroups:
+          - Ref: InstanceSecurityGroup
+    InstanceSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupName: serverless-group
+        GroupDescription: Allows SSH access to developers
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            CidrIp: 0.0.0.0/0
+          - IpProtocol: tcp
+            FromPort: 8080
+            ToPort: 8080
+            CidrIp: 0.0.0.0/0
+        # TODO: change. By default: fromPort - any, toPort - any, CidIp: 0.0.0.0/0
+        # SecurityGroupEgress:
+        #   - IpProtocol: tcp
+        #     FromPort: 80
+        #     ToPort: 80
+        #     CidrIp: 0.0.0.0/0
