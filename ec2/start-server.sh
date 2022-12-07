@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh -i $SSH_KEY $USER@$HOST "./docker/start.sh"
+ssh -i $SSH_KEY $USER@$HOST "cd test-serverless; ./docker/start.sh"

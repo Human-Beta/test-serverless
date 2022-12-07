@@ -1,13 +1,8 @@
 #!/bin/bash
 
-set -e
+ssh -i $SSH_KEY $USER@$HOST "
+git clone $REPO;
+cd test-serverless;
 
-git clone https://github.com/Human-Beta/test-serverless.git
-cd test-serverless
-
-chmod +x gradlew
-chmod +x gradlew.bat
-
-ls -l
-
-./gradlew clean assemble
+chmod +x docker/*;
+"
